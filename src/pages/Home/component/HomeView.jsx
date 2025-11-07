@@ -1,10 +1,9 @@
-import React from 'react'
 import useSWR from 'swr';
-import VideoCard from './VideoCard';
-import { fetcher } from '../../../utils/fetcher';
-import data from '../../../../data/home.json'
+import { fetcher } from '@/utils/fetcher';
 import Teams from './Teams';
-import { showMenu } from '../../../utils/signals';
+import VideoCard from '@/pages/Home/component/VideoCard';
+import { showMenu } from '@/utils/signals';
+import data from '../../../../data/home.json'
 
 const HomeView = ({ category }) => {
 

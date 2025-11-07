@@ -9,7 +9,7 @@ import { load, save } from '../../utils/storage';
 import { useEffect } from 'preact/hooks';
 import HomeView from './component/HomeView';
 import CategorySelector from './component/CategorySelector';
-import { showMenu } from '../../utils/signals';
+import { showMenu } from '@/utils/signals';
 
 
 export function Home({ category }) {

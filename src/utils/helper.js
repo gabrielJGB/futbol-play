@@ -10,7 +10,7 @@ export const getFlag = (slug, SIZE) => {
 
     const url = `https://a1.espncdn.com/combiner/i?img=/i/teamlogos/countries/500/${flagCode}.png?w=${SIZE + p}&h=${SIZE + p}`
 
-    return <img src={url} width={SIZE} height={SIZE} />
+    return url
 
 }
 

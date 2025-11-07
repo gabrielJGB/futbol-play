@@ -30,7 +30,7 @@ const Menu = () => {
                 <Link
                   // @ts-ignore
                   href={`/${league.slug}`} className='hover:bg-zinc-700 py-2 px-1 flex flex-row items-center gap-2 '>
-                  {getFlag(league.slug, 20)}
+                  <img src={getFlag(league.slug, 20)} width={20} height={20} />
                   <div className='text-[13px]'>{league.name}</div>
                 </Link>
               ))

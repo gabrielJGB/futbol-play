@@ -23,15 +23,15 @@ const CategorySelector = () => {
                     leagues.map((league) => (
                         <div
                             onClick={() => {
-                                 defaultCategory.value = league.slug 
-                                 save("category",league.slug)
-                                 route(`/${league.slug}`)
+                                defaultCategory.value = league.slug
+                                save("category", league.slug)
+                                route(`/${league.slug}`)
 
                             }}
                             class={"flex-1 hover:bg-background-3 cursor-pointer text-center text-sm flex flex-row items-center gap-1 justify-center py-1 px-4 w-max bg-background-3  hover:outline-red-500 outline-1 outline-transparent shadow text-gray-200"}
                         >
-                            {getFlag(league.slug.split(".")[0], 20)}
 
+                            <img src={getFlag(league.slug.split(".")[0], 20)} width={20} height={20} />
 
                             <div class={"whitespace-nowrap"}>{league.name}</div>
                         </div>

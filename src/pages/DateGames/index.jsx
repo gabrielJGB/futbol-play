@@ -1,7 +1,7 @@
 import React from 'react'
 import useSWR from 'swr';
 import { fetcher } from '../../utils/fetcher';
-
+import { useState } from 'preact/hooks';
 import data from '../../../data/dateGames.json'
 import VideoCard from '../Home/component/VideoCard';
 import { showMenu } from '../../utils/signals';
@@ -9,36 +9,50 @@ import { Link } from 'preact-router/match';
 
 
 
-const formatDate = (str) => {
-    const year = parseInt(str.slice(0, 4), 10);
-    const month = parseInt(str.slice(4, 6), 10) - 1; // los meses van de 0 a 11
-    const day = parseInt(str.slice(6, 8), 10);
-
-    const date = new Date(year, month, day);
-    const now = new Date();
-
-    // Normalizamos fechas para comparar sin horas
-    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-    const yesterday = new Date(today);
-    yesterday.setDate(today.getDate() - 1);
-
-    if (date.getTime() === today.getTime()) return 'Hoy';
-    if (date.getTime() === yesterday.getTime()) return 'Ayer';
-
-    const months = [
-        'enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio',
-        'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'
-    ];
-
-    return `${day} de ${months[month][0].toUpperCase() + months[month].slice(1)} de ${year}`;
-};
 
 
 const DateGames = ({ date }) => {
 
+const [_date, setDate] = useState(date)
+
+    const changeDay = (delta) => {
+        const year = parseInt(date.slice(0, 4), 10);
+        const month = parseInt(date.slice(4, 6), 10) - 1;
+        const day = parseInt(date.slice(6, 8), 10);
+
+        const current = new Date(year, month, day);
+        current.setDate(current.getDate() + delta);
+        const x = `${current.getFullYear()}${String(current.getMonth() + 1).padStart(2, "0")}${String(current.getDate()).padStart(2, "0")}`
+
+        setDate(x);
+    };
+
+    const formatDate = (str) => {
+        const year = parseInt(str.slice(0, 4), 10);
+        const month = parseInt(str.slice(4, 6), 10) - 1; // los meses van de 0 a 11
+        const day = parseInt(str.slice(6, 8), 10);
+
+        const date = new Date(year, month, day);
+        const now = new Date();
+
+        // Normalizamos fechas para comparar sin horas
+        const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+        const yesterday = new Date(today);
+        yesterday.setDate(today.getDate() - 1);
+
+        if (date.getTime() === today.getTime()) return 'Hoy';
+        if (date.getTime() === yesterday.getTime()) return 'Ayer';
+
+        const months = [
+            'enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio',
+            'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'
+        ];
+
+        return `${day} de ${months[month][0].toUpperCase() + months[month].slice(1)} de ${year}`;
+    };
 
 
-    const { data, isLoading, error } = useSWR(`https://site.web.api.espn.com/apis/v2/scoreboard/header?sport=soccer&lang=es&region=ar&dates=${date}`,
+    const { data, isLoading, error } = useSWR(`https://site.web.api.espn.com/apis/v2/scoreboard/header?sport=soccer&lang=es&region=ar&dates=${_date}`,
         fetcher,
         {
             revalidateOnFocus: false,
@@ -70,7 +84,25 @@ const DateGames = ({ date }) => {
     return (
 
         <div class={"flex flex-col gap-2"}>
-            <h2 class={"text-3xl font-semibold"}>Partidos {formatDate(date)}</h2>
+            <div>
+
+                <h2 class={"text-3xl font-semibold"}>Partidos {formatDate(date)}</h2>
+                <div class={"flex flex-row items-center gap-2 p-1"}>
+                    <button
+                        onClick={() => changeDay(-1)}
+                        class="text-2xl px-3 py-2 rounded-full bg-gray-800 hover:bg-gray-700 text-white"
+                    >
+                        ◀
+                    </button>
+
+                    <button
+                        onClick={() => changeDay(1)}
+                        class="text-2xl px-3 py-2 rounded-full bg-gray-800 hover:bg-gray-700 text-white"
+                    >
+                        ▶
+                    </button>
+                </div>
+            </div>
             <div class={`grid md:grid-cols-2 ${showMenu.value ? "lg:grid-cols-3" : "lg:grid-cols-4"}  grid-cols-1 gap-5`}>
 
                 {
