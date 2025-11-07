@@ -8,18 +8,15 @@ export default defineConfig({
 	plugins: [
 		tailwindcss(),
 		preact({
+
 			prerender: {
-				enabled: true,
-				renderTarget: '#app',
-				additionalPrerenderRoutes: ['/404'],
-				previewMiddlewareEnabled: true,
-				previewMiddlewareFallback: '/404',
+				enabled: false,
 			},
 		}),
 	],
 	resolve: {
-	 alias: {
-		 '@': path.resolve(__dirname, './src'),
-		 },
-	 },
+		alias: {
+			'@': path.resolve(__dirname, './src'),
+		},
+	},
 });
