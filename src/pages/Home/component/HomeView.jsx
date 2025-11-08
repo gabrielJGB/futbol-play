@@ -4,12 +4,22 @@ import Teams from './Teams';
 import VideoCard from '@/pages/Home/component/VideoCard';
 import { showMenu } from '@/utils/signals';
 import data from '../../../../data/home.json'
+import { useEffect } from 'preact/hooks';
 
 const HomeView = ({ category }) => {
+
+	useEffect(() => {
+		if (window.innerWidth > 768) {
+			showMenu.value = true
+		} else {
+			showMenu.value = false
+		}
+	}, [category])
 
 	const { data, isLoading, error } = useSWR(`https://site.api.espn.com/apis/site/v2/sports/soccer/${category}/news?lang=es&content=video&limit=70&_899898`,
 		fetcher,
 		{
+			refreshInterval: 30000,
 			revalidateOnFocus: false,
 		},
 	);
@@ -35,17 +45,17 @@ const HomeView = ({ category }) => {
 
 
 
-		
-		
+
+
 
 	return (
-		<div class={"text-white"}>
+		<div class={"text-white "}>
 
 			<h1 class={"text-white font-semibold md:text-3xl text-2xl p-2 mb-1"}>{data.header.split("-")[1]}</h1>
 
-			<Teams category={category}/>
+			<Teams category={category} />
 
-			<div class={`grid md:grid-cols-2 ${showMenu.value?"lg:grid-cols-3":"lg:grid-cols-4" }  grid-cols-1 gap-5`}>
+			<div class={`grid md:grid-cols-2 ${showMenu.value ? "lg:grid-cols-3" : "lg:grid-cols-4"}  grid-cols-1 gap-5`}>
 
 
 				{

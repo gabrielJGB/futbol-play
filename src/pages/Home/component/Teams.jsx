@@ -51,11 +51,7 @@ const Teams = ({ category }) => {
 
 
     if (error)
-        return (
-            <div class={"text-center w-full mt-2 font-semibold text-sm"}>
-                Ha ocurrido un error
-            </div>
-        )
+        return;
 
     const teams = data.sports[0].leagues[0].teams
 

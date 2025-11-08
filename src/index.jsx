@@ -11,6 +11,7 @@ import { useEffect } from 'preact/hooks';
 import { showMenu } from './utils/signals.js';
 import DateGames from './pages/DateGames/index.jsx';
 import TeamPage from './pages/Team/index.jsx';
+import GamePage from '@/pages/Game/index.jsx';
 
 
 // const Redirect = () => {
@@ -29,17 +30,18 @@ export function App() {
 		<LocationProvider>
 			<Header />
 			
-			<main class="relative z-40 flex flex-row ">
+			<main class="bg-[url('/bg.png')] min-h-screen relative z-40 flex flex-row ">
 
 				<Menu />
 
-				<div class={`${showMenu.value?"md:ml-[200px]":"md:ml-0"}  ml-0 mt-[7vh] p-1 md:p-5 w-full `}>
+				<div class={`${showMenu.value?"md:ml-[230px]":"md:ml-0"}  ml-0 mt-[7vh] p-1 md:p-5 w-full `}>
 					<Router>
 						<Route path="/" component={Home} />
 						<Route path="/:category" component={Home} />
 						<Route path="/date/:date" component={DateGames} />
 						<Route path="/article/:id" component={Article} />
 						<Route path="/team/:id" component={TeamPage} />
+						<Route path="/game/:id" component={GamePage} />
 						<Route path="/video/:id" component={VideoPage} />
 						<Route default component={NotFound} />
 					</Router>

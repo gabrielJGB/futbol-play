@@ -19,7 +19,7 @@ export function Home({ category }) {
 
 	useEffect(() => {
 		if (window.innerWidth > 768)
-	  showMenu.value = true
+			showMenu.value = true
 	}, [])
 
 
@@ -31,7 +31,7 @@ export function Home({ category }) {
 		if (defaultCategory != undefined) {
 			return <HomeView category={defaultCategory} />
 		} else {
-			return <CategorySelector/>
+			return <CategorySelector />
 		}
 
 	} else {
@@ -82,7 +82,7 @@ export function Home({ category }) {
 
 
 
-			{/* <h1 class={"text-white font-semibold text-2xl mb-2"}>Principal</h1>
+	{/* <h1 class={"text-white font-semibold text-2xl mb-2"}>Principal</h1>
 			<div class={"grid md:grid-cols-2 lg:grid-cols-3 grid-cols-1 gap-5"}>
 
 		
