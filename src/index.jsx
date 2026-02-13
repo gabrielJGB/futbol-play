@@ -1,29 +1,16 @@
-import { LocationProvider, Router, Route, hydrate, prerender as ssr, useLocation } from 'preact-iso';
-
-import { Header } from './components/Header.jsx';
-import { Home } from './pages/Home/index.jsx';
-import { NotFound } from './pages/_404.jsx';
-import './style.css';
-import Menu from './components/Menu.jsx';
-import Article from './pages/Article/index.jsx';
-import VideoPage from './pages/Video/index.jsx';
 import { useEffect } from 'preact/hooks';
-import { showMenu } from './utils/signals.js';
-import DateGames from './pages/DateGames/index.jsx';
-import TeamPage from './pages/Team/index.jsx';
+import { LocationProvider, Router, Route, hydrate, prerender as ssr, useLocation } from 'preact-iso';
+import { Header } from '@/components/Header.jsx';
+import { Home } from '@/pages/Home/index.jsx';
+import { NotFound } from '@/pages/_404.jsx';
+import Menu from '@/components/Menu.jsx';
+import Article from '@/pages/Article/index.jsx';
+import VideoPage from '@/pages/Video/index.jsx';
+import DateGames from '@/pages/DateGames/index.jsx';
+import TeamPage from '@/pages/Team/index.jsx';
 import GamePage from '@/pages/Game/index.jsx';
-
-
-// const Redirect = () => {
-// 	const { route } = useLocation()
-
-// 	useEffect(() => {
-
-// 		route(`/a`, true);
-// 	}, []);
-
-// 	return null;
-// };
+import { showMenu } from '@/utils/signals.js';
+import './style.css';
 
 export function App() {
 	return (

@@ -10,15 +10,19 @@ import { getFlag } from '../../../utils/helper'
 
 const CategorySelector = () => {
 
+    const flag_size = 35
     const { route } = useLocation()
-    const leagues = sections.filter(s => s.section_name === "Sudamérica" || s.section_name === "Europa").flatMap(r => r.leagues)
-
+    const leagues = sections
+        .filter(s => s.section_name === "Sudamérica" || s.section_name === "Europa")
+        .flatMap(r => r.leagues)
+        .filter(s=>s.slug.match(/\w\w\w.\d/))
+        
 
     return (
         <div>
             <h1 class={"font-semibold text-2xl mb-3 text-white"}>Seleccionar una liga por defecto</h1>
 
-            <div class={"conatiner flex flex-row justify-center flex-wrap gap-2 w-full"}>
+            <div class={"grid md:grid-cols-6 grid-cols-3 gap-2 p-1"}>
                 {
                     leagues.map((league) => (
                         <div
@@ -28,12 +32,11 @@ const CategorySelector = () => {
                                 route(`/${league.slug}`)
 
                             }}
-                            class={"flex-1 hover:bg-background-3 cursor-pointer text-center text-sm flex flex-row items-center gap-1 justify-center py-1 px-4 w-max bg-background-3  hover:outline-red-500 outline-1 outline-transparent shadow text-gray-200"}
+                            class={"bg-zinc-900 hover:bg-red-900 p-1 transition-all cursor-pointer rounded flex flex-col items-center justify-center"}
                         >
 
-                            <img src={getFlag(league.slug.split(".")[0], 20)} width={20} height={20} />
-
-                            <div class={"whitespace-nowrap"}>{league.name}</div>
+                            <img src={getFlag(league.slug.split(".")[0], flag_size)} width={flag_size} height={flag_size} />
+                            <div class={"text-sm text-center"}>{league.name}</div>
                         </div>
                     ))
                 }

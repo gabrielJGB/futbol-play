@@ -11,9 +11,10 @@ const VideoPage = ({ id }) => {
     const [videoQuality, setVideoQuality] = useState(defaultQuality.value)
 
     useEffect(() => {
-        
+        if (window.innerWidth > 768)
+            showMenu.value = true
+        else
             showMenu.value = false
-        
     }, [])
 
     const { data, isLoading, error } = useSWR(`https://now.core.api.espn.com/v1/sports/news/${id}?lang=es`,
@@ -27,15 +28,7 @@ const VideoPage = ({ id }) => {
     if (isLoading)
         return (
             <div class={`grid ${showMenu.value ? "md:grid-cols-[4fr_1fr] grid-cols-1" : "md:grid-cols-[2fr_1fr] grid-cols-1"}  gap-5`}>
-
                 <div class={"bg-background-3 rounded-lg h-[500px] animate-pulse"}></div>
-
-                <div class={"flex flex-col gap-3"}>
-                    {Array.from({ length: 10 }).map(() => (
-                        <div class={" bg-background-3 rounded-lg w-full h-[140px] animate-pulse"}></div>
-                    ))}
-                </div>
-
             </div>
         )
 
@@ -50,12 +43,10 @@ const VideoPage = ({ id }) => {
 
     const event = data.headlines[0].categories.find(e => e.type === "event")
     const teams = data.headlines[0].categories.filter(x => x.type === "team")
-
     const SD = data.headlines[0].video[0].links.mobile.source.href
     const HD = data.headlines[0].video[0].links.source.HD.href
-
     const published = new Date(data.headlines[0].published)?.toLocaleString()
-    
+
 
     const story = "story" in data.headlines[0] && data.headlines[0].story
         .replaceAll("<p>", "<p style=margin-top:19px>")

@@ -1,5 +1,6 @@
 import { Link } from 'preact-router/match'
-import React from 'react'
+import { useState } from 'preact/hooks';
+
 
 const timeAgo = (date) => {
     const now = new Date();
@@ -24,16 +25,26 @@ const timeAgo = (date) => {
 
 const VideoCard = ({ article }) => {
 
-
     const published = article.published ?? article.originalPublishDate
-
     const img = "images" in article ? article.images[0].url : article.thumbnail
+    const [showDescription, setShowDescription] = useState(false)
+
     return (
         <Link
             // @ts-ignore
             href={`/video/${article.id}`}
-            class={"flex flex-col gap-1  relative border border-transparent hover:border-primary  active:border-primary  rounded-lg hover:scale-98 transition-all p-1 hover:bg-[#1a1a1a] hover:shadow-black  shadow-lg  cursor-pointer  "}
-            title={article.description}
+            class={"flex flex-col gap-1  relative border border-transparent hover:border-primary  active:border-primary  rounded-lg  transition-all p-1 hover:bg-red-900   cursor-pointer  "}
+
+            onMouseEnter={() => {
+                setTimeout(() => {
+                    setShowDescription(true)
+                }, 200);
+            }}
+            
+            onMouseLeave={() => {
+                setShowDescription(false)
+                setShowDescription(false)
+            }}
         >
             {
                 img &&
@@ -43,6 +54,7 @@ const VideoCard = ({ article }) => {
 
 
             <div class={"flex flex-col flex-1  px-1 "}>
+                
                 <div class={"text-start mt-1 text-xs mb-1 text-gray-300  italic "}>
                     {timeAgo(new Date(published))}
                 </div>
@@ -50,21 +62,6 @@ const VideoCard = ({ article }) => {
 
             </div>
 
-
-
-
-
-            <div class={"flex flex-row flex-wrap gap-1"}>
-                {/* <div class={"rounded border border-zinc-700 bg-zinc-900 hover:bg-zinc-800 text-xs cursor-pointer p-1 text-white"}> */}
-
-                {/* </div> */}
-                {/* {
-                    article.categories.filter(cat => cat.type === "league" || cat.type === "team" || cat.type === "event").map(item => (
-                        <div class={"rounded border border-zinc-700 bg-zinc-900 hover:bg-zinc-800 text-xs cursor-pointer p-1 text-white"}>{item.description.replace("@", "vs")}</div>
-                    ))
-                } */}
-
-            </div>
 
         </Link>
     )
